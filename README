@@ -1,0 +1,12 @@
+Jollen's HTML5 Course Series
+----------------------------
+
+   Since Android WebView doesn't support WebSocket client, HTML5 Apps using Web
+View aren't able to connect to WebSocket server.
+
+   android-browser-websocket is a simple to implement WebSocket for WebView. It
+uses Autobahn WebSocket library, please refer to http://autobahn.ws first.
+
+***
+
+Please see www.moko365.com for more course information.

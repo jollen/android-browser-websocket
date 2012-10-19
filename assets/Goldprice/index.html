@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>No Chat</title>
+    <link rel="stylesheet"  href="./jquery.mobile-1.1.1.min.css" />  
+    <link rel="stylesheet"  href="./main.css" />          
+    <script type='text/javascript' src="./json2.js"></script>
+	<script type='text/javascript' src="./jquery-1.8.0.js"></script>
+	<script src="./jquery.mobile-1.1.1.min.js"></script> 
+	<script src="./jquery.websocket.js"></script> 	
+</head>
+<body>
+<div data-role="page">  
+	<div data-role="header">
+		<form id="submit_form" method="GET" action="http://svn.moko365.com:8080/">
+			<input id="text" type="text" value="" />
+			<input type="submit" id="submit" value="Start" />
+		</form>  	
+	</div>
+	
+  	<div data-role="content" id="content">
+		<div id="message"></div>
+		<div id="room"></div>		
+	</div>
+	
+	<div data-role="footer">
+		<div id="status">Status</div>
+	</div>
+</div>
+</body>
+
+<script type="text/javascript">
+function WebSocketImpl (url, proto) {
+	var instance;
+	
+	WebSocketImpl = function WebSocketImpl() {
+		return instance;
+	};
+	
+	WebSocketImpl.prototype = this;
+	
+	instance = new WebSocketImpl();
+	
+	instance.constructor = WebSocketImpl;
+	
+	// Start to build
+	instance.url = url;
+	instance.proto = proto;
+		
+	// Public method
+	instance.connect = function() {
+		WebSocketAndroid.connect(url, proto);
+	};
+			
+	return instance;
+} 
+
+$(document).ready(function(){
+	$("#status").createWebSocket();
+	$("#message").handleMessage();
+	initSubmitForm();
+});
+
+var initSubmitForm = function () {
+        $("#submit_form").submit(function () {
+            var $form = $("#submit_form");
+            var $submit = $("#submit");
+            $.ajax({
+                url: $form.attr("action") + "send",
+                type: "GET",
+                dataType: "json",
+                data: {
+				    m: $("#text").val(),
+                },
+            });
+            
+            return false;
+        });
+    };
+</script>
+</html>
